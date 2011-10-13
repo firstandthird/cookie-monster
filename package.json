@@ -1,0 +1,15 @@
+{
+  "name": "cookie-monster",
+  "description": "a simple cookie library",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jgallen23/cookie-monster",
+  "authors": ["Greg Allen, @jgaui"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgallen23/cookie-monster.git"
+  },
+  "dependencies": {
+  },
+  "main": "./dist/monster.js",
+  "keywords": ["ender", "cookie"]
+}

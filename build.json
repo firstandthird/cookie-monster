@@ -1,0 +1,27 @@
+{
+  "JAVASCRIPT": {
+    "DIST_DIR": "./dist",
+    "monster": [
+      "./lib/copyright.js",
+      "./lib/amd-top.js",
+      "./lib/monster.js",
+      "./lib/amd-bottom.js"
+    ]
+  },
+  "JSHINT_OPTS": {
+    "boss": true,
+    "forin": false,
+    "curly": true,
+    "debug": false,
+    "devel": false,
+    "evil": false,
+    "regexp": false,
+    "undef": false,
+    "sub": true,
+    "white": true,
+    "indent": 2,
+    "whitespace": true,
+    "asi": true
+  }
+}
+
