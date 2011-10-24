@@ -15,6 +15,17 @@ test('remove', function() {
   monster.remove(name);
   equal(monster.get(name), null);
 });
+test('remove (but looking in document.cookie instead of using monster.get)', function() {
+  var name = 'name';
+  var value = 'value';
+  var days = 1;
+  monster.set(name, value, days);
+  monster.remove(name);
+  var cs = document.cookie.split(';');
+  cs.forEach(function(item){
+    strictEqual(item.indexOf(name),-1);
+  });
+});
 test('set object', function(){
   var name = 'name';
   var value = {some:'value'};
