@@ -68,3 +68,14 @@ test('set string edge case string starting with "{"', function(){
   monster.set(name, value, days);
   deepEqual(monster.get(name), value);
 });
+test('try to set an object in a browser that dont have window.JSON', function(){
+  var name = 'name';
+  var value = {some:"value"};
+  var days = 1;
+  var aux = window.JSON;
+  delete window.JSON;
+  raises(function(){
+	monster.set(name, value, days);
+  });
+  window.JSON = aux;
+});

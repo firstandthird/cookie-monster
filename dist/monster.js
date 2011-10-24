@@ -25,6 +25,7 @@ var monster = function() {
         expires = "; expires=" + date.toGMTString();
       }
       if(type !== "string"  && type !== "undefined"){
+          if(!("JSON" in window)) throw "your browser don't support JSON. SOMETHING MORE"; //TODO: Make a nicer error message
           valueToUse = JSON.stringify({v:value});
       }
       else
