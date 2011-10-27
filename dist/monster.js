@@ -1,6 +1,6 @@
 /*!
   * Cookie Monster - A javascript cookie library 
-  * v0.0.1
+  * v0.0.2
   * https://github.com/jgallen23/cookie-monster
   * copyright JGA 2011
   * MIT License
@@ -25,7 +25,7 @@ var monster = function() {
         expires = "; expires=" + date.toGMTString();
       }
       if(type !== "string"  && type !== "undefined"){
-          if(!("JSON" in window)) throw "your browser don't support JSON. SOMETHING MORE"; //TODO: Make a nicer error message
+          if(!("JSON" in window)) throw "Bummer, your browser doesn't support JSON parsing.";
           valueToUse = JSON.stringify({v:value});
       }
       else
@@ -34,7 +34,7 @@ var monster = function() {
       document.cookie = name + "=" + valueToUse + expires + "; path=" + path;
     },
     get: function(name) {
-      var nameEQ = name + "="
+      var nameEQ = name + "=",
           ca = document.cookie.split(';'),
           value = '',
           firstChar = '',
@@ -46,7 +46,7 @@ var monster = function() {
           value = c.substring(nameEQ.length, c.length);
           firstChar = value.substring(0, 1);
           if(firstChar=="{"){
-            parsed = JSON.parse(value)
+            parsed = JSON.parse(value);
             if("v" in parsed) return parsed.v;
           }
           if(value=="undefined") return undefined;

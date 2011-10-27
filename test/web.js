@@ -75,7 +75,7 @@ test('try to set an object in a browser that dont have window.JSON', function(){
   var aux = window.JSON;
   delete window.JSON;
   raises(function(){
-	monster.set(name, value, days);
+    monster.set(name, value, days);
   });
   window.JSON = aux;
 });
