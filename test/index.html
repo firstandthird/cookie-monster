@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css"/>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script type="text/javascript" src="live.js"></script>
+    <script type="text/javascript" src="../lib/monster.js"></script>
+    <script type="text/javascript" src="monster.test.js"></script>
+    <style>
+      #fixture { display: none; }
+    </style>
+    <script>
+    </script>
+    <script>
+      onload = function(){
+        var runner = mocha.run();
+      };
+    </script>
+  </head>
+  <body>
+    <div id="fixture"></div>
+    <div id="mocha"></div>
+  </body>
+</html>
