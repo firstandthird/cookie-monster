@@ -3,9 +3,7 @@
     "DIST_DIR": "./dist",
     "monster": [
       "./lib/copyright.js",
-      "./lib/amd-top.js",
-      "./lib/monster.js",
-      "./lib/amd-bottom.js"
+      "./lib/monster.js"
     ]
   },
   "JSHINT_OPTS": {
