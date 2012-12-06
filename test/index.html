@@ -4,23 +4,19 @@
     <link rel="stylesheet" href="../node_modules/mocha/mocha.css"/>
     <script src="../components/assert/assert.js"></script>
     <script src="../node_modules/mocha/mocha.js"></script>
-    <script>mocha.setup('bdd')</script>
+    <script>mocha.setup('tdd')</script>
     <script type="text/javascript" src="live.js"></script>
     <script type="text/javascript" src="../dist/monster.js"></script>
     <script type="text/javascript" src="monster.test.js"></script>
     <style>
       #fixture { display: none; }
     </style>
-    <script>
-    </script>
-    <script>
-      onload = function(){
-        var runner = mocha.run();
-      };
-    </script>
   </head>
   <body>
     <div id="fixture"></div>
     <div id="mocha"></div>
+    <script>
+      var runner = mocha.run();
+    </script>
   </body>
 </html>
