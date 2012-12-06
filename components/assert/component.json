@@ -1,0 +1,14 @@
+{
+  "name": "assert",
+  "version": "0.0.1",
+  "main": "./assert.js",
+  "gitHead": "e1edf18aa4793b8eca698c9af82b3b4b5f5975c6",
+  "readme": "# assert.js\n\nassert.js is a port of the Node.js standard assertion library for the browser.\nThe original code and tests are from Node.js, and have been modified to be browser compatible.\n\nFor example, you can use it with [Mocha](http://visionmedia.github.com/mocha/) to perform tests\non the **both sides** (server-side and client-side). Mocha does not supply it's own assertion library.\n\n## run the same tests on both the client-side and server-side\n\nYou can use the standard assert module when running mocha on Node.js.\n\nThe same tests will run in the browser if you use this library.\n\n## how to use\n\n```html\n<script src=\"assert.js\"></script>\n<script src=\"path/to/testing-framework.js\"></script>\n<script src=\"path/to/your/test.js\"></script>\n```\n\n## running test of this library\n\n### browser\nopen ```test/index.html``` in your browser,\nand see the console.\n\n### node.js\n\n```shell\n> node test/test-assert.js\nAll OK\n```\n\n## license\n\nMIT (same as Node.js)",
+  "readmeFilename": "README.md",
+  "_id": "assert@0.0.1",
+  "description": "assert.js is a port of the Node.js standard assertion library for the browser. The original code and tests are from Node.js, and have been modified to be browser compatible.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jgallen23/assert"
+  }
+}

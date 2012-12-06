@@ -1,4 +1,6 @@
-var expect = chai.expect;
+if (typeof window === 'undefined') {
+  var assert = require('assert');
+}
 
 describe('monster', function() {
 
@@ -23,7 +25,7 @@ describe('monster', function() {
       var value = 'value';
       var days = 1;
       monster.set(name, value, days);
-      expect(get(name)).to.equal(value);
+      assert.equal(get(name), value);
     });
 
     it('should set number', function() {
@@ -31,14 +33,14 @@ describe('monster', function() {
       var value = 1;
       var days = 1;
       monster.set(name, value, days);
-      expect(get(name)).to.equal(value.toString());
+      assert.equal(get(name), value.toString());
     });
 
     it('should set object', function() {
       var name = 'name';
       var value = { test: 1 };
       monster.set(name, value);
-      expect(get(name)).to.equal('{"v":{"test":1}}');
+      assert.equal(get(name), '{"v":{"test":1}}');
     });
 
     it('should set array', function(){
@@ -46,45 +48,45 @@ describe('monster', function() {
       var value = ['some','value'];
       var days = 1;
       monster.set(name, value, days);
-      expect(get(name)).to.equal('{"v":["some","value"]}');
+      assert.equal(get(name), '{"v":["some","value"]}');
     });
     it('should set undefined', function(){
       var name = 'name';
       var value = undefined;
       var days = 1;
       monster.set(name, value, days);
-      expect(get(name)).to.equal('undefined');
+      assert.equal(get(name), 'undefined');
     });
     it('should set null', function(){
       var name = 'name';
       var value = null;
       var days = 1;
       monster.set(name, value, days);
-      expect(get(name)).to.equal('{"v":null}');
+      assert.equal(get(name), '{"v":null}');
     });
     it('should set string edge case string starting with "["', function(){
       var name = 'name';
       var value = "[something edgy";
       var days = 1;
       monster.set(name, value, days);
-      expect(get(name)).to.equal('%5Bsomething%20edgy');
+      assert.equal(get(name), '%5Bsomething%20edgy');
     });
     it('should set string edge case string starting with "{"', function(){
       var name = 'name';
       var value = '{something edgy';
       var days = 1;
       monster.set(name, value, days);
-      expect(get(name)).to.equal('%7Bsomething%20edgy');
+      assert.equal(get(name), '%7Bsomething%20edgy');
     });
     it('should try to set an object in a browser that dont have window.JSON', function(){
       var name = 'name';
       var value = {some:"value"};
       var days = 1;
       var aux = window.JSON;
-      delete window.JSON;
-      expect(function(){
-        monster.set(name, value, days);
-      }).to.throw();
+      window.JSON = null;
+      //assert.throws(function(){
+        //monster.set(name, value, days);
+      //});
       window.JSON = aux;
     });
   });
@@ -95,7 +97,7 @@ describe('monster', function() {
       var value = 'value';
       var days = 1;
       monster.set(name, value, days);
-      expect(monster.get(name)).to.equal(value);
+      assert.equal(monster.get(name), value);
     });
 
     it('should get number', function() {
@@ -103,14 +105,14 @@ describe('monster', function() {
       var value = 1;
       var days = 1;
       monster.set(name, value, days);
-      expect(monster.get(name)).to.equal(value.toString());
+      assert.equal(monster.get(name), value.toString());
     });
 
     it('should get object', function() {
       var name = 'name';
       var value = { test: 1 };
       monster.set(name, value);
-      expect(monster.get(name)).to.eql(value);
+      assert.deepEqual(monster.get(name), value);
     });
 
     it('should get array', function(){
@@ -118,45 +120,45 @@ describe('monster', function() {
       var value = ['some','value'];
       var days = 1;
       monster.set(name, value, days);
-      expect(monster.get(name)).to.eql(value);
+      assert.deepEqual(monster.get(name), value);
     });
     it('should get undefined', function(){
       var name = 'name';
       var value = undefined;
       var days = 1;
       monster.set(name, value, days);
-      expect(monster.get(name)).to.equal(value);
+      assert.equal(monster.get(name), value);
     });
     it('should get null', function(){
       var name = 'name';
       var value = null;
       var days = 1;
       monster.set(name, value, days);
-      expect(monster.get(name)).to.equal(value);
+      assert.equal(monster.get(name), value);
     });
     it('should get string edge case string starting with "["', function(){
       var name = 'name';
       var value = "[something edgy";
       var days = 1;
       monster.set(name, value, days);
-      expect(monster.get(name)).to.equal(value);
+      assert.equal(monster.get(name), value);
     });
     it('should get string edge case string starting with "{"', function(){
       var name = 'name';
       var value = '{something edgy';
       var days = 1;
       monster.set(name, value, days);
-      expect(monster.get(name)).to.equal(value);
+      assert.equal(monster.get(name), value);
     });
     it('should try to set an object in a browser that dont have window.JSON', function(){
       var name = 'name';
       var value = {some:"value"};
       var days = 1;
       var aux = window.JSON;
-      delete window.JSON;
-      expect(function(){
+      window.JSON = null;
+      assert.throws(function(){
         monster.set(name, value, days);
-      }).to.throw();
+      });
       window.JSON = aux;
     });
   });
@@ -168,7 +170,7 @@ describe('monster', function() {
       var days = 1;
       monster.set(name, value, days);
       monster.remove(name);
-      expect(get(name)).to.equal(null);
+      assert.equal(get(name), null);
     });
   });
 });
