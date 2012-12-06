@@ -1,0 +1,5 @@
+{
+  "name": "cookie-monster",
+  "version": "0.0.4",
+  "main": "./dist/monster.js"
+}
