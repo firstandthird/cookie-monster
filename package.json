@@ -4,16 +4,20 @@
   "version": "0.0.3",
   "homepage": "https://github.com/jgallen23/cookie-monster",
   "author": "Greg Allen <@jgaui> (http://jga.me)",
+  "license": "MIT",
+  "copyright": "JGA",
   "repository": {
     "type": "git",
     "url": "https://github.com/jgallen23/cookie-monster.git"
   },
-  "dependencies": {
-  },
-  "devDependencies":  {
+  "dependencies": {},
+  "devDependencies": {
     "mocha": "*",
-    "chai": "*"
+    "grunt": "~0.3.17"
   },
   "main": "./dist/monster.js",
-  "keywords": ["ender", "cookie"]
+  "keywords": [
+    "ender",
+    "cookie"
+  ]
 }
