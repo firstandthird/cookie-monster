@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     },
     watch: {
       js: {
-        files: 'lib/monster.js',
+        files: ['lib/monster.js', 'test/*'],
         tasks: 'concat min' 
       }
     },
