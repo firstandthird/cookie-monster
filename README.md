@@ -7,13 +7,15 @@ download [monster.js](https://github.com/jgallen23/cookie-monster/raw/master/dis
 
 or
 
-	ender build cookie-monster 
+	bower install cookie-monster 
 
 ## Usage
 
-	monster.set(name, value, days, path) //days and path are optional
-	monster.get(name)
-	monster.remove(name)
+	monster.set(name, value, days, path); //days and path are optional, value can be json
+	monster.get(name);
+	monster.remove(name);
+	monster.increment(name, days); //days optional
+	monster.decrement(name, days); //days optional
 
 ## Example
 
