@@ -1,5 +1,9 @@
 {
   "name": "cookie-monster",
   "version": "0.0.4",
-  "main": "./dist/monster.js"
+  "main": "./dist/monster.js",
+  "description": "a simple cookie library",
+  "homepage": "https://github.com/jgallen23/cookie-monster",
+  "license": "MIT",
+  "copyright": "JGA"
 }
