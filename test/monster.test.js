@@ -166,4 +166,31 @@ suite('monster', function() {
     });
   });
 
+  suite('#increment', function() {
+    test('should set cookie value to 1 if cookie doesnt exist', function() {
+      monster.increment(cookieName);
+      assert.equal(get(cookieName), 1);
+    });
+
+    test('should increment if cookie exists', function() {
+      monster.increment(cookieName);
+      assert.equal(get(cookieName), 1);
+      monster.increment(cookieName);
+      assert.equal(get(cookieName), 2);
+    });
+  });
+
+  suite('#decrement', function() {
+    test('should set cookie value to -1 if cookie doesnt exist', function() {
+      monster.decrement(cookieName);
+      assert.equal(get(cookieName), -1);
+    });
+
+
+    test('should decrement cookie if cookie exists', function() {
+      monster.set(cookieName, 2);
+      monster.decrement(cookieName);
+      assert.equal(get(cookieName), 1);
+    });
+  });
 });
