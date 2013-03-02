@@ -2,6 +2,8 @@ if (typeof window === 'undefined') {
   var assert = require('assert');
 }
 
+var cookieName = 'cookiemonster';
+
 suite('monster', function() {
 
   //basic function to get cookie value
@@ -18,73 +20,68 @@ suite('monster', function() {
     return null;
   };
 
+  teardown(function() {
+    document.cookie = cookieName + "=0; expires=-1; path=/";
+  });
+
   suite('#set', function() {
 
     test('should set string', function() {
-      var name = 'name';
       var value = 'value';
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(get(name), value);
+      monster.set(cookieName, value, days);
+      assert.equal(get(cookieName), value);
     });
 
     test('should set number', function() {
-      var name = 'name';
       var value = 1;
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(get(name), value.toString());
+      monster.set(cookieName, value, days);
+      assert.equal(get(cookieName), value.toString());
     });
 
     test('should set object', function() {
-      var name = 'name';
       var value = { test: 1 };
-      monster.set(name, value);
-      assert.equal(get(name), '{"v":{"test":1}}');
+      monster.set(cookieName, value);
+      assert.equal(get(cookieName), '{"v":{"test":1}}');
     });
 
     test('should set array', function(){
-      var name = 'name';
       var value = ['some','value'];
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(get(name), '{"v":["some","value"]}');
+      monster.set(cookieName, value, days);
+      assert.equal(get(cookieName), '{"v":["some","value"]}');
     });
 
     test('should set undefined', function(){
-      var name = 'name';
       var value = undefined;
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(get(name), 'undefined');
+      monster.set(cookieName, value, days);
+      assert.equal(get(cookieName), 'undefined');
     });
 
     test('should set null', function(){
-      var name = 'name';
       var value = null;
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(get(name), '{"v":null}');
+      monster.set(cookieName, value, days);
+      assert.equal(get(cookieName), '{"v":null}');
     });
 
     test('should set string edge case string starting with "["', function(){
-      var name = 'name';
       var value = "[something edgy";
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(get(name), '%5Bsomething%20edgy');
+      monster.set(cookieName, value, days);
+      assert.equal(get(cookieName), '%5Bsomething%20edgy');
     });
 
     test('should set string edge case string starting with "{"', function(){
-      var name = 'name';
       var value = '{something edgy';
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(get(name), '%7Bsomething%20edgy');
+      monster.set(cookieName, value, days);
+      assert.equal(get(cookieName), '%7Bsomething%20edgy');
     });
 
     test('should try to set an object in a browser that dont have window.JSON', function(){
-      var name = 'name';
       var value = {some:"value"};
       var days = 1;
       var aux = window.JSON;
@@ -98,71 +95,62 @@ suite('monster', function() {
 
   suite('#get', function() {
     test('should get string', function() {
-      var name = 'name';
       var value = 'value';
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(monster.get(name), value);
+      monster.set(cookieName, value, days);
+      assert.equal(monster.get(cookieName), value);
     });
 
     test('should get number', function() {
-      var name = 'name';
       var value = 1;
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(monster.get(name), value.toString());
+      monster.set(cookieName, value, days);
+      assert.equal(monster.get(cookieName), value.toString());
     });
 
     test('should get object', function() {
-      var name = 'name';
       var value = { test: 1 };
-      monster.set(name, value);
-      assert.deepEqual(monster.get(name), value);
+      monster.set(cookieName, value);
+      assert.deepEqual(monster.get(cookieName), value);
     });
 
     test('should get array', function(){
-      var name = 'name';
       var value = ['some','value'];
       var days = 1;
-      monster.set(name, value, days);
-      assert.deepEqual(monster.get(name), value);
+      monster.set(cookieName, value, days);
+      assert.deepEqual(monster.get(cookieName), value);
     });
     test('should get undefined', function(){
-      var name = 'name';
       var value = undefined;
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(monster.get(name), value);
+      monster.set(cookieName, value, days);
+      assert.equal(monster.get(cookieName), value);
     });
     test('should get null', function(){
-      var name = 'name';
       var value = null;
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(monster.get(name), value);
+      monster.set(cookieName, value, days);
+      assert.equal(monster.get(cookieName), value);
     });
     test('should get string edge case string starting with "["', function(){
-      var name = 'name';
       var value = "[something edgy";
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(monster.get(name), value);
+      monster.set(cookieName, value, days);
+      assert.equal(monster.get(cookieName), value);
     });
     test('should get string edge case string starting with "{"', function(){
-      var name = 'name';
       var value = '{something edgy';
       var days = 1;
-      monster.set(name, value, days);
-      assert.equal(monster.get(name), value);
+      monster.set(cookieName, value, days);
+      assert.equal(monster.get(cookieName), value);
     });
     test('should try to set an object in a browser that dont have window.JSON', function(){
-      var name = 'name';
       var value = {some:"value"};
       var days = 1;
       var aux = window.JSON;
       window.JSON = null;
       assert.throws(function(){
-        monster.set(name, value, days);
+        monster.set(cookieName, value, days);
       });
       window.JSON = aux;
     });
@@ -170,12 +158,12 @@ suite('monster', function() {
 
   suite('#remove', function() {
     test('should remove cookie', function() {
-      var name = 'name';
       var value = 'value';
       var days = 1;
-      monster.set(name, value, days);
-      monster.remove(name);
-      assert.equal(get(name), null);
+      monster.set(cookieName, value, days);
+      monster.remove(cookieName);
+      assert.equal(get(cookieName), null);
     });
   });
+
 });
