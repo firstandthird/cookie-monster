@@ -1,8 +1,8 @@
 /*!
  * cookie-monster - a simple cookie library
- * v0.0.4
+ * v0.1.0
  * https://github.com/jgallen23/cookie-monster
- * copyright JGA 2012
+ * copyright JGA 2013
  * MIT License
 */
 
@@ -23,7 +23,7 @@ var monster = {
     }
     else
       valueToUse = escape(value);
-    
+
     document.cookie = name + "=" + valueToUse + expires + "; path=" + path;
   },
   get: function(name) {
@@ -50,5 +50,13 @@ var monster = {
   },
   remove: function(name) {
     this.set(name, "", -1);
+  },
+  increment: function(name, days) {
+    var value = this.get(name) || 0;
+    this.set(name, (parseInt(value, 10) + 1), days);
+  },
+  decrement: function(name, days) {
+    var value = this.get(name) || 0;
+    this.set(name, (parseInt(value, 10) - 1), days);
   }
 };

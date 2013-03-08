@@ -1,6 +1,6 @@
 {
   "name": "cookie-monster",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "main": "./dist/monster.js",
   "description": "a simple cookie library",
   "homepage": "https://github.com/jgallen23/cookie-monster",
