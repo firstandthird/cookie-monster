@@ -2,9 +2,18 @@
   "name": "cookie-monster",
   "version": "0.0.0",
   "private": true,
-  "dependencies": {},
   "devDependencies": {
-    "mocha": "*",
-    "grunt": "~0.3.17"
+    "grunt": "~0.4.1",
+    "grunt-mocha": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-connect": "~0.3.0",
+    "grunt-contrib-watch": "~0.5.1",
+    "grunt-plato": "~0.2.0",
+    "grunt-bytesize": "~0.1.0",
+    "grunt-concat-bower": "~0.1.0",
+    "grunt-shell": "~0.3.0",
+    "grunt-contrib-clean": "~0.5.0"
   }
 }

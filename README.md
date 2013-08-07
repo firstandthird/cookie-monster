@@ -3,7 +3,7 @@ A javascript libary to manage cookies
 
 ## Installation
 
-download [monster.js](https://github.com/jgallen23/cookie-monster/raw/master/dist/monster.js) from dist directory. 
+download [monster.js](https://github.com/jgallen23/cookie-monster/raw/master/dist/cookie-monster.js) from dist directory. 
 
 or
 

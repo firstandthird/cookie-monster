@@ -1,7 +1,3 @@
-if (typeof window === 'undefined') {
-  var assert = require('assert');
-}
-
 var cookieName = 'cookiemonster';
 
 suite('monster', function() {
@@ -20,8 +16,11 @@ suite('monster', function() {
     return null;
   };
 
-  teardown(function() {
-    document.cookie = cookieName + "=0; expires=-1; path=/";
+  teardown(function(done) {
+    setTimeout(function() {
+      document.cookie = cookieName + "=0; expires=-1; path=/";
+      done();
+    }, 10);
   });
 
   suite('#set', function() {
@@ -51,13 +50,6 @@ suite('monster', function() {
       var days = 1;
       monster.set(cookieName, value, days);
       assert.equal(get(cookieName), '{"v":["some","value"]}');
-    });
-
-    test('should set undefined', function(){
-      var value = undefined;
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(get(cookieName), 'undefined');
     });
 
     test('should set null', function(){
@@ -120,30 +112,28 @@ suite('monster', function() {
       monster.set(cookieName, value, days);
       assert.deepEqual(monster.get(cookieName), value);
     });
-    test('should get undefined', function(){
-      var value = undefined;
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(monster.get(cookieName), value);
-    });
+
     test('should get null', function(){
       var value = null;
       var days = 1;
       monster.set(cookieName, value, days);
       assert.equal(monster.get(cookieName), value);
     });
+
     test('should get string edge case string starting with "["', function(){
       var value = "[something edgy";
       var days = 1;
       monster.set(cookieName, value, days);
       assert.equal(monster.get(cookieName), value);
     });
+
     test('should get string edge case string starting with "{"', function(){
       var value = '{something edgy';
       var days = 1;
       monster.set(cookieName, value, days);
       assert.equal(monster.get(cookieName), value);
     });
+
     test('should try to set an object in a browser that dont have window.JSON', function(){
       var value = {some:"value"};
       var days = 1;
