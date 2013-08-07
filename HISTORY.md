@@ -1,4 +1,11 @@
 
+0.2.0 / 2013-08-07 
+==================
+
+  * [lib] fixes #6 escape / unescape are deprecated
+  * [lib] swapped toGMTString with toUTCString
+  * [build] updated grunt config
+
 0.1.0 / 2013-03-01 
 ==================
 

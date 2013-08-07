@@ -1,6 +1,6 @@
 /*!
  * cookie-monster - a simple cookie library
- * v0.1.0
+ * v0.2.0
  * https://github.com/jgallen23/cookie-monster
  * copyright Greg Allen 2013
  * MIT License
@@ -14,13 +14,13 @@ var monster = {
     path = path || "/";
     if (days) {
       date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-      expires = "; expires=" + date.toGMTString();
+      expires = "; expires=" + date.toUTCString();
     }
     if (type === "object"  && type !== "undefined") {
         if(!("JSON" in window)) throw "Bummer, your browser doesn't support JSON parsing.";
         valueToUse = JSON.stringify({v:value});
     } else {
-      valueToUse = escape(value);
+      valueToUse = encodeURIComponent(value);
     }
 
     document.cookie = name + "=" + valueToUse + expires + "; path=" + path;
@@ -42,7 +42,7 @@ var monster = {
           if("v" in parsed) return parsed.v;
         }
         if (value=="undefined") return undefined;
-        return unescape(value);
+        return decodeURIComponent(value);
       }
     }
     return null;
