@@ -6,11 +6,12 @@
  * MIT License
 */
 var monster = {
-  set: function(name, value, days, path) {
+  set: function(name, value, days, path, secure) {
     var date = new Date(),
         expires = '',
         type = typeof(value),
-        valueToUse = '';
+        valueToUse = '',
+        secureFlag = '';
     path = path || "/";
     if (days) {
       date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -22,8 +23,11 @@ var monster = {
     } else {
       valueToUse = encodeURIComponent(value);
     }
+    if (secure){
+      secureFlag = "; secure";
+    }
 
-    document.cookie = name + "=" + valueToUse + expires + "; path=" + path;
+    document.cookie = name + "=" + valueToUse + expires + "; path=" + path + secureFlag;
   },
   get: function(name) {
     var nameEQ = name + "=",
