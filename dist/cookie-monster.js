@@ -1,8 +1,8 @@
 /*!
  * cookie-monster - a simple cookie library
- * v0.2.0
+ * v0.3.0
  * https://github.com/jgallen23/cookie-monster
- * copyright Greg Allen 2013
+ * copyright Greg Allen 2014
  * MIT License
 */
 var monster = {
@@ -19,7 +19,7 @@ var monster = {
     }
     if (type === "object"  && type !== "undefined") {
         if(!("JSON" in window)) throw "Bummer, your browser doesn't support JSON parsing.";
-        valueToUse = JSON.stringify({v:value});
+        valueToUse = encodeURIComponent(JSON.stringify({v:value}));
     } else {
       valueToUse = encodeURIComponent(value);
     }
@@ -39,14 +39,18 @@ var monster = {
       var c = ca[i];
       while (c.charAt(0) == ' ') c = c.substring(1, c.length);
       if (c.indexOf(nameEQ) === 0) {
-        value = c.substring(nameEQ.length, c.length);
+        value = decodeURIComponent(c.substring(nameEQ.length, c.length));
         firstChar = value.substring(0, 1);
         if(firstChar=="{"){
-          parsed = JSON.parse(value);
-          if("v" in parsed) return parsed.v;
+          try {
+            parsed = JSON.parse(value);
+            if("v" in parsed) return parsed.v;
+          } catch(e) {
+            return value;
+          }
         }
         if (value=="undefined") return undefined;
-        return decodeURIComponent(value);
+        return value;
       }
     }
     return null;

@@ -1,4 +1,11 @@
 
+0.3.0 / 2014-09-11 
+==================
+
+  * added a dummy example file
+  * fix for safari and json
+  * Adding ability to set secure flag
+
 0.2.0 / 2013-08-07 
 ==================
 
