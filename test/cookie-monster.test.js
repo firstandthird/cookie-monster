@@ -1,3 +1,4 @@
+/* global suite,test,monster */
 var cookieName = 'cookiemonster';
 
 suite('monster', function() {
@@ -10,13 +11,13 @@ suite('monster', function() {
       var name = cookie[0].replace(/ /g, '');
       var value = cookie[1];
       if (cookieName == name) {
-        return value;
+        return decodeURIComponent(value);
       }
     }
     return null;
   };
 
-  teardown(function(done) {
+  setup(function(done) {
     setTimeout(function() {
       document.cookie = cookieName + "=0; expires=-1; path=/";
       done();
@@ -30,6 +31,13 @@ suite('monster', function() {
       var days = 1;
       monster.set(cookieName, value, days);
       assert.equal(get(cookieName), value);
+    });
+
+    test('should set string with comma', function() {
+      var value = 'value, value2';
+      var days = 1;
+      monster.set(cookieName, value, days);
+      assert.equal(decodeURIComponent(get(cookieName)), value);
     });
 
     test('should set number', function() {
@@ -63,14 +71,14 @@ suite('monster', function() {
       var value = "[something edgy";
       var days = 1;
       monster.set(cookieName, value, days);
-      assert.equal(get(cookieName), '%5Bsomething%20edgy');
+      assert.equal(get(cookieName), '[something edgy');
     });
 
     test('should set string edge case string starting with "{"', function(){
       var value = '{something edgy';
       var days = 1;
       monster.set(cookieName, value, days);
-      assert.equal(get(cookieName), '%7Bsomething%20edgy');
+      assert.equal(get(cookieName), '{something edgy');
     });
 
     test('should try to set an object in a browser that dont have window.JSON', function(){
@@ -108,6 +116,13 @@ suite('monster', function() {
 
     test('should get array', function(){
       var value = ['some','value'];
+      var days = 1;
+      monster.set(cookieName, value, days);
+      assert.deepEqual(monster.get(cookieName), value);
+    });
+
+    test('should get object with a comma in it', function() {
+      var value = { location: 'Hermosa Beach, CA' };
       var days = 1;
       monster.set(cookieName, value, days);
       assert.deepEqual(monster.get(cookieName), value);
