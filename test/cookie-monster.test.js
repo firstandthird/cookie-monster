@@ -1,201 +1,77 @@
-/* global suite,test,monster */
-var cookieName = 'cookiemonster';
+/* eslint no-console: 0 */
 
-suite('monster', function() {
+import { set, get, remove, increment, decrement } from '../cookie-monster';
 
-  //basic function to get cookie value
-  var get = function(cookieName) {
-    var cs = document.cookie.split(';');
-    for (var i = 0, c = cs.length; i < c; i++) {
-      var cookie = cs[i].split('=');
-      var name = cookie[0].replace(/ /g, '');
-      var value = cookie[1];
-      if (cookieName == name) {
-        return decodeURIComponent(value);
-      }
-    }
-    return null;
-  };
+import test from 'tape-rollup';
 
-  setup(function(done) {
-    setTimeout(function() {
-      document.cookie = cookieName + "=0; expires=-1; path=/";
-      done();
-    }, 10);
-  });
+test('basic', t => {
+  t.plan(1);
+  set('testcookie', 'testval');
 
-  suite('#set', function() {
+  const val = get('testcookie');
 
-    test('should set string', function() {
-      var value = 'value';
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(get(cookieName), value);
-    });
+  t.equal(val, 'testval', 'Cookie set correctly');
+});
 
-    test('should set string with comma', function() {
-      var value = 'value, value2';
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(decodeURIComponent(get(cookieName)), value);
-    });
+test('json', t => {
+  t.plan(1);
+  set('jsoncookie', { test: 1 });
 
-    test('should set number', function() {
-      var value = 1;
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(get(cookieName), value.toString());
-    });
+  const val = get('jsoncookie');
 
-    test('should set object', function() {
-      var value = { test: 1 };
-      monster.set(cookieName, value);
-      assert.equal(get(cookieName), '{"v":{"test":1}}');
-    });
+  t.equal(val.test, 1, 'JSON set correctly');
+});
 
-    test('should set array', function(){
-      var value = ['some','value'];
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(get(cookieName), '{"v":["some","value"]}');
-    });
+test('with comma', t => {
+  t.plan(1);
+  set('commacookie', 'value, value1');
 
-    test('should set null', function(){
-      var value = null;
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(get(cookieName), '{"v":null}');
-    });
+  const val = get('commacookie');
 
-    test('should set string edge case string starting with "["', function(){
-      var value = "[something edgy";
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(get(cookieName), '[something edgy');
-    });
+  t.equal(val, 'value, value1', 'Cookie set correctly');
+});
 
-    test('should set string edge case string starting with "{"', function(){
-      var value = '{something edgy';
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(get(cookieName), '{something edgy');
-    });
+test('should set string edge case string starting with "["', t => {
+  t.plan(1);
+  set('testcookie', '[something edgy');
 
-    test('should try to set an object in a browser that dont have window.JSON', function(){
-      var value = {some:"value"};
-      var days = 1;
-      var aux = window.JSON;
-      window.JSON = null;
-      //assert.throws(function(){
-        //monster.set(name, value, days);
-      //});
-      window.JSON = aux;
-    });
-  });
+  const val = get('testcookie');
 
-  suite('#get', function() {
-    test('should get string', function() {
-      var value = 'value';
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(monster.get(cookieName), value);
-    });
+  t.equal(val, '[something edgy', 'Cookie set correctly');
+});
 
-    test('should get number', function() {
-      var value = 1;
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(monster.get(cookieName), value.toString());
-    });
+test('should set string edge case string starting with "{"', t => {
+  t.plan(1);
+  set('testcookie', '{something edgy');
 
-    test('should get object', function() {
-      var value = { test: 1 };
-      monster.set(cookieName, value);
-      assert.deepEqual(monster.get(cookieName), value);
-    });
+  const val = get('testcookie');
 
-    test('should get array', function(){
-      var value = ['some','value'];
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.deepEqual(monster.get(cookieName), value);
-    });
+  t.equal(val, '{something edgy', 'Cookie set correctly');
+});
 
-    test('should get object with a comma in it', function() {
-      var value = { location: 'Hermosa Beach, CA' };
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.deepEqual(monster.get(cookieName), value);
-    });
+test('remove', t => {
+  t.plan(1);
+  set('testcookie', 'testval');
+  remove('testcookie');
 
-    test('should get null', function(){
-      var value = null;
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(monster.get(cookieName), value);
-    });
+  const val = get('testcookie');
 
-    test('should get string edge case string starting with "["', function(){
-      var value = "[something edgy";
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(monster.get(cookieName), value);
-    });
+  t.equal(val, null, 'Cookie removed correctly');
+});
 
-    test('should get string edge case string starting with "{"', function(){
-      var value = '{something edgy';
-      var days = 1;
-      monster.set(cookieName, value, days);
-      assert.equal(monster.get(cookieName), value);
-    });
+test('increment / decrement', t => {
+  t.plan(2);
+  increment('visits');
+  increment('visits');
+  increment('visits');
 
-    test('should try to set an object in a browser that dont have window.JSON', function(){
-      var value = {some:"value"};
-      var days = 1;
-      var aux = window.JSON;
-      window.JSON = null;
-      assert.throws(function(){
-        monster.set(cookieName, value, days);
-      });
-      window.JSON = aux;
-    });
-  });
+  let val = get('visits');
 
-  suite('#remove', function() {
-    test('should remove cookie', function() {
-      var value = 'value';
-      var days = 1;
-      monster.set(cookieName, value, days);
-      monster.remove(cookieName);
-      assert.equal(get(cookieName), null);
-    });
-  });
+  t.equal(val, '3', 'Cookie incremented correctly');
 
-  suite('#increment', function() {
-    test('should set cookie value to 1 if cookie doesnt exist', function() {
-      monster.increment(cookieName);
-      assert.equal(get(cookieName), 1);
-    });
+  decrement('visits');
 
-    test('should increment if cookie exists', function() {
-      monster.increment(cookieName);
-      assert.equal(get(cookieName), 1);
-      monster.increment(cookieName);
-      assert.equal(get(cookieName), 2);
-    });
-  });
+  val = get('visits');
 
-  suite('#decrement', function() {
-    test('should set cookie value to -1 if cookie doesnt exist', function() {
-      monster.decrement(cookieName);
-      assert.equal(get(cookieName), -1);
-    });
-
-
-    test('should decrement cookie if cookie exists', function() {
-      monster.set(cookieName, 2);
-      monster.decrement(cookieName);
-      assert.equal(get(cookieName), 1);
-    });
-  });
+  t.equal(val, '2', 'Cookie decremented correctly');
 });
