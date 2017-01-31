@@ -19,10 +19,11 @@ const name = 'cookiename'; // required
 const value = 'somevalue'; // required - may also be an object
 const expires = 10; // optional - Days cookie is valid
 const path = '/test'; // optional - defaults to /
+const domain = 'blog.example.com'; // optional
 const isSecure = false; // optional - sets secure flag
 
 // Set cookie
-CookieMonster.set(name, value, expires, path, isSecure);
+CookieMonster.set(name, value, expires, path, domain, isSecure);
 
 // Get cookie
 CookieMonster.get(name);

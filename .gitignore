@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-dist
+dist/
 test/*.dist*
 npm-debug.log
 .idea
