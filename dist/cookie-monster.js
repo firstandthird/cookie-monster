@@ -1,69 +1,96 @@
-/*!
- * cookie-monster - a simple cookie library
- * v0.3.0
- * https://github.com/jgallen23/cookie-monster
- * copyright Greg Allen 2014
- * MIT License
-*/
-var monster = {
-  set: function(name, value, days, path, secure) {
-    var date = new Date(),
-        expires = '',
-        type = typeof(value),
-        valueToUse = '',
-        secureFlag = '';
-    path = path || "/";
-    if (days) {
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-      expires = "; expires=" + date.toUTCString();
-    }
-    if (type === "object"  && type !== "undefined") {
-        if(!("JSON" in window)) throw "Bummer, your browser doesn't support JSON parsing.";
-        valueToUse = encodeURIComponent(JSON.stringify({v:value}));
-    } else {
-      valueToUse = encodeURIComponent(value);
-    }
-    if (secure){
-      secureFlag = "; secure";
-    }
+(function (exports) {
+'use strict';
 
-    document.cookie = name + "=" + valueToUse + expires + "; path=" + path + secureFlag;
-  },
-  get: function(name) {
-    var nameEQ = name + "=",
-        ca = document.cookie.split(';'),
-        value = '',
-        firstChar = '',
-        parsed={};
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) {
-        value = decodeURIComponent(c.substring(nameEQ.length, c.length));
-        firstChar = value.substring(0, 1);
-        if(firstChar=="{"){
-          try {
-            parsed = JSON.parse(value);
-            if("v" in parsed) return parsed.v;
-          } catch(e) {
-            return value;
-          }
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function set(name, value) {
+  var days = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  var path = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '/';
+  var secure = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+
+  var date = new Date();
+  var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+
+  var expires = '';
+  var valueToUse = '';
+  var secureFlag = '';
+
+  if (days) {
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = '; expires=' + date.toUTCString();
+  }
+
+  if (type === 'object' && type !== 'undefined') {
+    valueToUse = encodeURIComponent(JSON.stringify({ value: value }));
+  } else {
+    valueToUse = encodeURIComponent(value);
+  }
+
+  if (secure) {
+    secureFlag = '; secure';
+  }
+
+  document.cookie = name + '=' + valueToUse + expires + '; path=' + path + secureFlag;
+}
+
+function get(name) {
+  var nameEQ = name + '=';
+  var split = document.cookie.split(';');
+  var value = null;
+
+  split.forEach(function (item) {
+    var cleaned = item.trim();
+
+    if (cleaned.indexOf(nameEQ) === 0) {
+      value = decodeURIComponent(cleaned.substring(nameEQ.length, cleaned.length));
+
+      if (value.substring(0, 1) === '{') {
+        try {
+          value = JSON.parse(value);
+          value = value.value || null;
+        } catch (e) {
+          return;
         }
-        if (value=="undefined") return undefined;
-        return value;
+      }
+
+      if (value === 'undefined') {
+        value = undefined;
       }
     }
-    return null;
-  },
-  remove: function(name) {
-    this.set(name, "", -1);
-  },
-  increment: function(name, days) {
-    var value = this.get(name) || 0;
-    this.set(name, (parseInt(value, 10) + 1), days);
-  },
-  decrement: function(name, days) {
-    var value = this.get(name) || 0;
-    this.set(name, (parseInt(value, 10) - 1), days);
-  }
+  });
+
+  return value;
+}
+
+function remove(name) {
+  set(name, '', -1);
+}
+
+function increment(name, days) {
+  var value = get(name) || 0;
+  set(name, ~~value + 1, days);
+}
+
+function decrement(name, days) {
+  var value = get(name) || 0;
+  set(name, ~~value - 1, days);
+}
+
+var cookieMonster_default = {
+  set: set,
+  get: get,
+  remove: remove,
+  increment: increment,
+  decrement: decrement
 };
+
+exports.set = set;
+exports.get = get;
+exports.remove = remove;
+exports.increment = increment;
+exports.decrement = decrement;
+exports['default'] = cookieMonster_default;
+
+}((this.FirstandthirdCookieMonster = this.FirstandthirdCookieMonster || {})));
+
+//# sourceMappingURL=cookie-monster.js.map
