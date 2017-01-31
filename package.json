@@ -1,6 +1,6 @@
 {
   "name": "@firstandthird/cookie-monster",
-  "version": "1.3.3",
+  "version": "2.0.0",
   "description": "Cookie manager",
   "main": "dist/cookie-monster.js",
   "module": "cookie-monster.js",
