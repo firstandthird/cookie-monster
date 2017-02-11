@@ -29,7 +29,7 @@
   "devDependencies": {
     "eslint-config-firstandthird": "^3.1.0",
     "eslint-plugin-import": "^2.1.0",
-    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.14",
     "scriptkit": "0.0.20",
     "tap-spec": "^4.1.1",
     "tape-rollup": "4.6.4",
@@ -48,7 +48,9 @@
     },
     "scripts": {
       "babel": {
-        "exclude": [ "node_modules/tape-rollup/*" ]
+        "exclude": [
+          "node_modules/tape-rollup/*"
+        ]
       }
     }
   }
