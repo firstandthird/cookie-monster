@@ -31,6 +31,18 @@ test('with comma', t => {
   t.equal(val, 'value, value1', 'Cookie set correctly');
 });
 
+test('sanitize cookie name', t => {
+  t.plan(2);
+
+  t.throws(() => set('  ', 'value'), 'Empty cookies are not set');
+
+  set(' Inval1d   C00ki€.name', 'value, value1');
+
+  const val = get('Inval1d-C00kiname');
+
+  t.equal(val, 'value, value1', 'Cookie is sanitized correctly');
+});
+
 test('should set string edge case string starting with "["', t => {
   t.plan(1);
   set('testcookie', '[something edgy');
