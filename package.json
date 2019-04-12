@@ -2,13 +2,15 @@
   "name": "@firstandthird/cookie-monster",
   "version": "2.0.0",
   "description": "Cookie manager",
-  "main": "dist/cookie-monster.js",
-  "module": "cookie-monster.js",
+  "main": "cookie-monster.js",
+  "module": "dist/cookie-monster.esm.js",
   "scripts": {
+    "start": "scriptkit",
     "build": "scriptkit build",
     "dev": "scriptkit dev",
+    "pretest": "scriptkit build",
     "test": "cat test/cookie-monster.test.dist.js | tape-run --browser phantomjs --render tap-spec",
-    "prepublish": "scriptkit"
+    "prepublishOnly": "scriptkit"
   },
   "repository": {
     "type": "git",
@@ -27,13 +29,13 @@
   },
   "homepage": "https://github.com/firstandthird/cookie-monster#readme",
   "devDependencies": {
-    "eslint-config-firstandthird": "^3.1.0",
-    "eslint-plugin-import": "^2.1.0",
-    "phantomjs-prebuilt": "^2.1.14",
-    "scriptkit": "0.0.20",
-    "tap-spec": "^4.1.1",
-    "tape-rollup": "4.6.4",
-    "tape-run": "^2.1.5"
+    "eslint-config-firstandthird": "^4.3.0",
+    "eslint-plugin-import": "^2.16.0",
+    "phantomjs-prebuilt": "^2.1.16",
+    "scriptkit": "2.0.3",
+    "tap-spec": "^5.0.0",
+    "tape-rollup": "^4.6.4",
+    "tape-run": "^5.0.0"
   },
   "eslintConfig": {
     "env": {

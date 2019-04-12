@@ -1,6 +1,8 @@
-.DS_Store
 node_modules
-dist/
-test/*.dist*
 npm-debug.log
 .idea
+test/*.dist.*
+dist
+package-lock.json
+*.map
+.DS_Store

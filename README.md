@@ -1,13 +1,14 @@
 # Cookie Monster
 
 [![Build Status](https://travis-ci.org/firstandthird/cookie-monster.svg?branch=master)](https://travis-ci.org/firstandthird/cookie-monster)
+![npm](https://img.shields.io/npm/v/@firstandthird/cookie-monster.svg)
 
 Cookie manager
 
 ## Installation
 
-```
-npm install @firstandthird/cookie-monster --save
+```sh
+npm install @firstandthird/cookie-monster
 ```
 
 ## Usage
