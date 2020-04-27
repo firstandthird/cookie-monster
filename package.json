@@ -29,13 +29,13 @@
   },
   "homepage": "https://github.com/firstandthird/cookie-monster#readme",
   "devDependencies": {
-    "eslint-config-firstandthird": "^4.4.0",
-    "eslint-plugin-import": "^2.18.0",
+    "eslint-config-firstandthird": "^5.0.0",
+    "eslint-plugin-import": "^2.20.2",
     "phantomjs-prebuilt": "^2.1.16",
     "scriptkit": "^3.0.0",
     "tap-spec": "^5.0.0",
     "tape-rollup": "^4.6.4",
-    "tape-run": "^6.0.0"
+    "tape-run": "^6.0.1"
   },
   "eslintConfig": {
     "env": {

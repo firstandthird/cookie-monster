@@ -22,9 +22,10 @@ const expires = 10; // optional - Days cookie is valid
 const path = '/test'; // optional - defaults to /
 const domain = 'blog.example.com'; // optional
 const isSecure = false; // optional - sets secure flag
+const sameSite = 'Strict'; // optional - defaults to 'Strict' - Valid values: 'None', 'Lax', 'Strict'
 
 // Set cookie
-CookieMonster.set(name, value, expires, path, domain, isSecure);
+CookieMonster.set(name, value, expires, path, domain, isSecure, sameSite);
 
 // Get cookie
 CookieMonster.get(name);
